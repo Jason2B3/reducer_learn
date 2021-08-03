@@ -1,20 +1,24 @@
 import "./App.css";
 import React, { useState, useReducer } from "react";
 export default App;
-
+const ACTIONS = {
+  INCREMENT: "increment",
+  DECREMENT: " decrement",
+};
 function reducer(state, action) {
-  console.log(state)
-  console.log(action)
-  // Increment or decrement our current count by 1
-  if (action.type === "increment") return { count: state.count + 1 };
-  if (action.type === "decrement") return { count: state.count - 1 };
-  // If none of the above scenarios apply, return the state as is
-  return state
+  switch(action.type){
+    case ACTIONS.INCREMENT:
+      return { count: state.count + 1 }
+    case ACTIONS.DECREMENT:
+      return { count: state.count - 1 }; 
+    default:
+      return state
+  }
 }
 function App() {
   const [state, dispatch] = useReducer(reducer, { count: 0 });
-  const plusOne = (prevCount) => dispatch({ type: "increment" });
-  const minusOne = (prevCount) => dispatch({ type: "decrement" });
+  const plusOne = (prevCount) => dispatch({ type: ACTIONS.INCREMENT });
+  const minusOne = (prevCount) => dispatch({ type: ACTIONS.DECREMENT });
   return (
     <React.Fragment>
       <button onClick={minusOne}>-</button>
@@ -24,5 +28,3 @@ function App() {
     </React.Fragment>
   );
 }
-
-
